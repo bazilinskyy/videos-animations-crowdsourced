@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Detecting danger in dash camera videos</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='jsPsych/jspsych.js'></script>
+    <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
+    <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
+    <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
+    <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
+    <link rel='icon' type='image/png' href='/img/favicon.png' />
+  </head>
+  <body>
+  </body>
+  <script>
+
+  /* define instructions block */
+  var instructions_block = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>You will view 16 videos from the persective of a car driver. Each video lasts 1 minute. Press \'F\' at any time you feel the situation is dangerous. Please respond to any type of danger, even mild danger or situations that might require action (braking, steering). Press the \'F\' key as many times as you want. When you press \'F\' no feedback will be given to you. After the first 8 videos you will be able to take a small break. Press \'C\' to start with the first video.</p>',
+    choices: ['C'],
+  };
+
+  /* define test block */
+  var test_stimuli = [
+    {
+      sources: ['videos/video_1.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_1'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_2.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_2'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_3.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_3'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_4.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_4'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_5.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_5'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_6.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_6'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_7.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_7'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_8.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_8'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_9.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_9'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_10.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_10'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_11.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_11'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_12.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_12'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    /* Venezuela */
+    {
+      sources: ['videos/video_13.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_13'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_14.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_14'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_15.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_15'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+    {
+      sources: ['videos/video_16.mp4'],
+      on_finish: function(data){
+        jsPsych.data.addDataToLastTrial({type: 'video_16'});
+        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+      }
+    },
+  ];
+
+  // var all_trials = jsPsych.randomization.repeat(test_stimuli.slice(0,30), 1);
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+
+  var video_block_1 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 854,
+    height: 480,
+    choices: ['F'],
+    timeline: all_trials.slice(0, 8),
+    prompt: '<p>Press \'F\' when you see danger on the video.</p>',
+  };
+
+  var video_block_2 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 854,
+    height: 480,
+    choices: ['F'],
+    timeline: all_trials.slice(8),
+    prompt: '<p>Press \'F\' when you see danger on the video.</p>',
+  };
+
+  var between_block_1 = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>You have now completed 8 videos out of 16. When ready press \'C\' to proceed to the next batch.</p>',
+    choices: ['C'],
+  };
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(instructions_block);
+  timeline.push(video_block_1);
+  timeline.push(between_block_1);
+  timeline.push(video_block_2);
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+  };
+
+  /* MTurk information */
+  var turkInfo = jsPsych.turk.turkInfo();
+  if(turkInfo.previewMode && !turkInfo.outsideTurk) {
+    worker_id = turkInfo.workerId;
+  } else {
+    worker_id = String(Date.now());
+  }
+  timestamp = String(Date.now());
+
+  /* Start the experiment */
+  jsPsych.init({
+    show_preload_progress_bar: true,
+    timeline: timeline,
+    on_finish: function() {
+      $.ajax({
+        type: 'POST',
+        url: '/experiment-data',
+        data: jsPsych.data.get().json(),
+        contentType: 'application/json'
+      })
+      .done(function() {
+        window.location.href = 'finish?work=' + getUrlParameter('work');
+      })
+      .fail(function() {
+        alert('A problem occurred while writing to the database. Please contact the researcher for more information.')
+        window.location.href = '/';
+      })
+    }
+  });
+
+</script>
+</html>
