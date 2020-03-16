@@ -48,17 +48,21 @@
   }
 
   // create array of video_ids, remove 0th id, shuffle
-  var N = 40; // number of videos + 1
+  var videos_n = 40; // number of videos + 1
+  // video_prefix = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_';
+  video_prefix = 'videos/video_';
+  
   var video_ids = [];
-  for (var i = 1; i <= N; i++) {
+  for (var i = 1; i <= videos_n; i++) {
       video_ids.push(i);
   }
   // video_ids = video_ids.slice(1);
   video_ids = shuffle(video_ids);
 
+
   /* dynamically build a list of videos for block 1 */
   for (var i = 1; i <= 5; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_1.push(
       {
@@ -72,7 +76,7 @@
 
   /* dynamically build a list of videos for block 2 */
   for (var i = 6; i <= 10; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_2.push(
       {
@@ -86,7 +90,7 @@
 
   /* dynamically build a list of videos for block 3 */
   for (var i = 11; i <= 15; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_3.push(
       {
@@ -100,7 +104,7 @@
 
   /* dynamically build a list of videos for block 4 */
   for (var i = 16; i <= 20; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_4.push(
       {
@@ -114,7 +118,7 @@
 
   /* dynamically build a list of videos for block 5 */
   for (var i = 21; i <= 25; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_5.push(
       {
@@ -128,7 +132,7 @@
 
   /* dynamically build a list of videos for block 6 */
   for (var i = 26; i <= 30; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_6.push(
       {
@@ -142,7 +146,7 @@
 
   /* dynamically build a list of videos for block 7 */
   for (var i = 31; i <= 35; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_7.push(
       {
@@ -156,7 +160,7 @@
 
   /* dynamically build a list of videos for block 8 */
   for (var i = 36; i <= 40; i++) {
-      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
       test_stimuli_8.push(
       {
@@ -319,24 +323,24 @@
   timeline.push(between_block_1);
   timeline.push(video_block_2);
   timeline.push(save_data_block);
-  timeline.push(between_block_2);
-  timeline.push(video_block_3);
-  timeline.push(save_data_block);
-  timeline.push(between_block_3);
-  timeline.push(video_block_4);
-  timeline.push(save_data_block);
-  timeline.push(between_block_4);
-  timeline.push(video_block_5);
-  timeline.push(save_data_block);
-  timeline.push(between_block_5);
-  timeline.push(video_block_6);
-  timeline.push(save_data_block);
-  timeline.push(between_block_6);
-  timeline.push(video_block_7);
-  timeline.push(save_data_block);
-  timeline.push(between_block_7);
-  timeline.push(video_block_8);
-  timeline.push(save_data_block);
+  // timeline.push(between_block_2);
+  // timeline.push(video_block_3);
+  // timeline.push(save_data_block);
+  // timeline.push(between_block_3);
+  // timeline.push(video_block_4);
+  // timeline.push(save_data_block);
+  // timeline.push(between_block_4);
+  // timeline.push(video_block_5);
+  // timeline.push(save_data_block);
+  // timeline.push(between_block_5);
+  // timeline.push(video_block_6);
+  // timeline.push(save_data_block);
+  // timeline.push(between_block_6);
+  // timeline.push(video_block_7);
+  // timeline.push(save_data_block);
+  // timeline.push(between_block_7);
+  // timeline.push(video_block_8);
+  // timeline.push(save_data_block);
 
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
