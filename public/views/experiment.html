@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
   <head>
-    <title>Videos of animations of driving</title>
+    <title>Videos of eHMI from Unity</title>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src='jsPsych/jspsych.js'></script>
     <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
+    <script src='jsPsych/plugins/jspsych-call-function.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
     <link rel='icon' type='image/png' href='/img/favicon.png' />
@@ -17,166 +18,325 @@
   /* define instructions block */
   var instructions_block = {
     type: 'html-keyboard-response',
-    stimulus: '<p>In this experiment, you will view XXX animations of driving. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each XXX videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>',
+   	stimulus: '<p>In this experiment, you will view XXX animations of driving. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each XXX videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>',
     choices: ['C'],
   };
 
   /* define test block */
-  var test_stimuli = [
-    {
-      sources: ['videos/video_1.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_1'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_2.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_2'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_3.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_3'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_4.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_4'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_5.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_5'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_6.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_6'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_7.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_7'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_8.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_8'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_9.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_9'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_10.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_10'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_11.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_11'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_12.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_12'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    /* Venezuela */
-    {
-      sources: ['videos/video_13.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_13'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_14.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_14'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_15.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_15'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-    {
-      sources: ['videos/video_16.mp4'],
-      on_finish: function(data){
-        jsPsych.data.addDataToLastTrial({type: 'video_16'});
-        jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
-      }
-    },
-  ];
+  var test_stimuli_1 = [];
+  var test_stimuli_2 = [];
+  var test_stimuli_3 = [];
+  var test_stimuli_4 = [];
+  var test_stimuli_5 = [];
+  var test_stimuli_6 = [];
+  var test_stimuli_7 = [];
+  var test_stimuli_8 = [];
 
-  // var all_trials = jsPsych.randomization.repeat(test_stimuli.slice(0,30), 1);
-  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+  /**
+   * Shuffles array in place.
+   * @param {Array} a items An array containing the items.
+   */
+  function shuffle(a) {
+      var j, x, i;
+      for (i = a.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+      }
+      return a;
+  }
 
+  // create array of video_ids, remove 0th id, shuffle
+  var N = 276; // number of videos + 1
+  var video_ids = [];
+  for (var i = 1; i <= N; i++) {
+      video_ids.push(i);
+  }
+  // video_ids = video_ids.slice(1);
+  video_ids = shuffle(video_ids);
+
+  /* dynamically build a list of videos for block 1 */
+  for (var i = 1; i <= 5; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_1.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 2 */
+  for (var i = 6; i <= 10; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_2.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 3 */
+  for (var i = 11; i <= 15; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_3.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 4 */
+  for (var i = 16; i <= 20; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_4.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 5 */
+  for (var i = 21; i <= 25; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_5.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 6 */
+  for (var i = 26; i <= 30; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_6.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 7 */
+  for (var i = 31; i <= 35; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_7.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* dynamically build a list of videos for block 8 */
+  for (var i = 36; i <= 40; i++) {
+      video_name = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_'+ video_ids[i] + '.mp4';
+      video_type = 'video_'+ video_ids[i];
+      test_stimuli_8.push(
+      {
+        sources: [video_name],
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+        }
+      }
+    );
+  }
+
+  /* randomise list and pick the first 40 */
   var video_block_1 = {
     type: 'video-keyboard-multiple-responses-release',
     choices: ['F'],
     autoplay: true,
     controls: false,
-    width: 854,
-    height: 480,
+    width: 1280,
+    height: 720,
     choices: ['F'],
-    timeline: all_trials.slice(0, 8),
-    prompt: '<p>Press \'F\' when you feel safe to cross the road.</p>',
+    timeline: test_stimuli_1,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
   };
-
   var video_block_2 = {
     type: 'video-keyboard-multiple-responses-release',
     choices: ['F'],
     autoplay: true,
     controls: false,
-    width: 854,
-    height: 480,
+    width: 1280,
+    height: 720,
     choices: ['F'],
-    timeline: all_trials.slice(8),
-    prompt: '<p>Press \'F\' when you feel safe to cross the road.</p>',
+    timeline: test_stimuli_2,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
   };
-
+  var video_block_3 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 1280,
+    height: 720,
+    choices: ['F'],
+    timeline: test_stimuli_3,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+  };
+  var video_block_4 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 1280,
+    height: 720,
+    choices: ['F'],
+    timeline: test_stimuli_4,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+  };
+  var video_block_5 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 1280,
+    height: 720,
+    choices: ['F'],
+    timeline: test_stimuli_5,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+  };
+  var video_block_6 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 1280,
+    height: 720,
+    choices: ['F'],
+    timeline: test_stimuli_6,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+  };
+  var video_block_7 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 1280,
+    height: 720,
+    choices: ['F'],
+    timeline: test_stimuli_7,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+  };
+  var video_block_8 = {
+    type: 'video-keyboard-multiple-responses-release',
+    choices: ['F'],
+    autoplay: true,
+    controls: false,
+    width: 1280,
+    height: 720,
+    choices: ['F'],
+    timeline: test_stimuli_8,
+    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+  };
   var between_block_1 = {
     type: 'html-keyboard-response',
-    stimulus: '<p>You have now completed 8 videos out of 16. When ready press \'C\' to proceed to the next batch.</p>',
-    choices: ['C'],
+    stimulus: '<p>You have now completed 5 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+    choices: ['C']
   };
+  var between_block_2 = {
+    type: 'html-keyboard-response',
+    cont_key: ['C'],
+    stimulus: '<p>You have now completed 10 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+  };
+  var between_block_3 = {
+    type: 'html-keyboard-response',
+    cont_key: ['C'],
+    stimulus: '<p>You have now completed 15 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+  };
+  var between_block_4 = {
+    type: 'html-keyboard-response',
+    cont_key: ['C'],
+    stimulus: '<p>You have now completed 20 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+  };
+  var between_block_5 = {
+    type: 'html-keyboard-response',
+    cont_key: ['C'],
+    stimulus: '<p>You have now completed 25 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+  };
+  var between_block_6 = {
+    type: 'html-keyboard-response',
+    cont_key: ['C'],
+    stimulus: '<p>You have now completed 30 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+  };
+  var between_block_7 = {
+    type: 'html-keyboard-response',
+    cont_key: ['C'],
+    stimulus: '<p>You have now completed 35 videos out of XXX. When ready press \'C\' to proceed to the next batch.</p>',
+  };
+  var save_data_block = {
+    type: 'call-function',
+    func:  function() {
+      $.ajax({
+          type: 'POST',
+          url: '/experiment-data',
+          data: jsPsych.data.get().json(),
+          contentType: 'application/json'
+        })
+        .done(function() {
+          jsPsych.data.reset();
+        })
+        .fail(function() {
+          alert('A problem occurred while writing to the database. Please contact the researcher for more information.')
+          window.location.href = '/';
+        })
+      }
+  }
 
   /* create experiment timeline array */
   var timeline = [];
   timeline.push(instructions_block);
   timeline.push(video_block_1);
+  timeline.push(save_data_block);
   timeline.push(between_block_1);
   timeline.push(video_block_2);
+  timeline.push(save_data_block);
+  timeline.push(between_block_2);
+  timeline.push(video_block_3);
+  timeline.push(save_data_block);
+  timeline.push(between_block_3);
+  timeline.push(video_block_4);
+  timeline.push(save_data_block);
+  timeline.push(between_block_4);
+  timeline.push(video_block_5);
+  timeline.push(save_data_block);
+  timeline.push(between_block_5);
+  timeline.push(video_block_6);
+  timeline.push(save_data_block);
+  timeline.push(between_block_6);
+  timeline.push(video_block_7);
+  timeline.push(save_data_block);
+  timeline.push(between_block_7);
+  timeline.push(video_block_8);
+  timeline.push(save_data_block);
 
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -204,20 +364,9 @@
   jsPsych.init({
     show_preload_progress_bar: true,
     timeline: timeline,
+    max_load_time: 3000000,
     on_finish: function() {
-      $.ajax({
-        type: 'POST',
-        url: '/experiment-data',
-        data: jsPsych.data.get().json(),
-        contentType: 'application/json'
-      })
-      .done(function() {
-        window.location.href = 'finish?work=' + getUrlParameter('work');
-      })
-      .fail(function() {
-        alert('A problem occurred while writing to the database. Please contact the researcher for more information.')
-        window.location.href = '/';
-      })
+     window.location.href = 'finish?work=FIN1' + getUrlParameter('work');
     }
   });
 
