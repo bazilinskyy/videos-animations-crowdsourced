@@ -18,7 +18,7 @@
   /* define instructions block */
   var instructions_block = {
     type: 'html-keyboard-response',
-   	stimulus: '<p>In this experiment, you will view XXX animations of driving. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each XXX videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>',
+   	stimulus: '<p>In this experiment, you will view 156 animations of driving. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each XXX videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>',
     choices: ['C'],
   };
 
@@ -48,7 +48,7 @@
   }
 
   // create array of video_ids, remove 0th id, shuffle
-  var videos_n = 40; // number of videos + 1
+  var videos_n = 156; // number of videos + 1
   // video_prefix = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_';
   video_prefix = 'videos/video_';
   
@@ -323,24 +323,24 @@
   timeline.push(between_block_1);
   timeline.push(video_block_2);
   timeline.push(save_data_block);
-  // timeline.push(between_block_2);
-  // timeline.push(video_block_3);
-  // timeline.push(save_data_block);
-  // timeline.push(between_block_3);
-  // timeline.push(video_block_4);
-  // timeline.push(save_data_block);
-  // timeline.push(between_block_4);
-  // timeline.push(video_block_5);
-  // timeline.push(save_data_block);
-  // timeline.push(between_block_5);
-  // timeline.push(video_block_6);
-  // timeline.push(save_data_block);
-  // timeline.push(between_block_6);
-  // timeline.push(video_block_7);
-  // timeline.push(save_data_block);
-  // timeline.push(between_block_7);
-  // timeline.push(video_block_8);
-  // timeline.push(save_data_block);
+  timeline.push(between_block_2);
+  timeline.push(video_block_3);
+  timeline.push(save_data_block);
+  timeline.push(between_block_3);
+  timeline.push(video_block_4);
+  timeline.push(save_data_block);
+  timeline.push(between_block_4);
+  timeline.push(video_block_5);
+  timeline.push(save_data_block);
+  timeline.push(between_block_5);
+  timeline.push(video_block_6);
+  timeline.push(save_data_block);
+  timeline.push(between_block_6);
+  timeline.push(video_block_7);
+  timeline.push(save_data_block);
+  timeline.push(between_block_7);
+  timeline.push(video_block_8);
+  timeline.push(save_data_block);
 
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
