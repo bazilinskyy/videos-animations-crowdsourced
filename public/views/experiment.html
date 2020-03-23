@@ -47,18 +47,35 @@
       return a;
   }
 
-  // create array of video_ids, remove 0th id, shuffle
-  var videos_n = 156; // number of videos + 1
   // video_prefix = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_';
   video_prefix = 'videos/video_';
-  
-  var video_ids = [];
-  for (var i = 1; i <= videos_n; i++) {
-      video_ids.push(i);
+
+  // group 1
+  // create array of video_ids, remove 0th id, shuffle
+  var videos_n_1 = 78; // number of videos + 1
+  var video_ids_1 = [];
+  for (var i = 1; i <= videos_n_1; i++) {
+      video_ids_1.push(i);
   }
   // video_ids = video_ids.slice(1);
-  video_ids = shuffle(video_ids);
+  video_ids_1 = shuffle(video_ids);
 
+  // group 2
+  var videos_n_2 = 156; // number of videos + 1  
+  var video_ids_2 = [];
+  for (var i = 79; i <= videos_n_2; i++) {
+      video_ids_2.push(i);
+  }
+  // video_ids = video_ids.slice(1);
+  video_ids_2 = shuffle(video_ids);
+
+  // random choose group 1 or 2
+  if (Math.round(Math.random())) {  // if positive, choose group 1
+      video_ids = video_ids_1;
+  } else { // if negative choose group 2
+      video_ids = video_ids_2;
+  }
+  alert(video_ids);
 
   /* dynamically build a list of videos for block 1 */
   for (var i = 1; i <= 5; i++) {
