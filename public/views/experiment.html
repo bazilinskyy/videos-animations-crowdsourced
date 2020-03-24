@@ -7,8 +7,6 @@
     <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
-    <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
-    <script src='jsPsych/plugins/jspsych-survey-likert.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
     <link rel='icon' type='image/png' href='/img/favicon.png' />
@@ -82,7 +80,6 @@ function getRandomInt(min, max) {
   var group_choice = getRandomInt(1, 4);
   var stimulus_str = '';
 
-  console.log(group_choice);
 
   if (group_choice == 1) {  // group 1 with instructions (videos 1-28)
       video_ids = video_ids_1;
@@ -104,14 +101,11 @@ function getRandomInt(min, max) {
     stimulus: stimulus_str,
     choices: ['C'],
   };
-  console.log(stimulus_str);
-  console.log(video_ids);
 
   /* dynamically build a list of videos for block 1 */
   for (var i = 0; i <= 4; i++) {
       video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
-      console.log(video_name);
       test_stimuli_1.push(
       {
         sources: [video_name],
@@ -126,7 +120,6 @@ function getRandomInt(min, max) {
   for (var i = 5; i <= 9; i++) {
       video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
-      console.log(video_name);
       test_stimuli_2.push(
       {
         sources: [video_name],
@@ -141,7 +134,6 @@ function getRandomInt(min, max) {
   for (var i = 10; i <= 14; i++) {
       video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
-      console.log(video_name);
       test_stimuli_3.push(
       {
         sources: [video_name],
@@ -156,7 +148,6 @@ function getRandomInt(min, max) {
   for (var i = 15; i <= 19; i++) {
       video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
-      console.log(video_name);
       test_stimuli_4.push(
       {
         sources: [video_name],
@@ -171,7 +162,6 @@ function getRandomInt(min, max) {
   for (var i = 20; i <= 24; i++) {
       video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
-      console.log(video_name);
       test_stimuli_5.push(
       {
         sources: [video_name],
@@ -186,7 +176,6 @@ function getRandomInt(min, max) {
   for (var i = 25; i <= 27; i++) {
       video_name = video_prefix + video_ids[i] + '.mp4';
       video_type = 'video_'+ video_ids[i];
-      console.log(video_name);
       test_stimuli_6.push(
       {
         sources: [video_name],
@@ -289,35 +278,6 @@ function getRandomInt(min, max) {
     cont_key: ['C'],
     stimulus: '<p>You have now completed 25 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
   };
-  var slider_trial = {
-      type: 'html-slider-response',
-      stimulus: '<p>Safety of crossing</p>',
-      labels: ['Not safe', 'Safe'],
-      prompt: "<p>How safe did you feel to cross?</p>"
-  };
-  var scale_1 = [
-    "1  ", 
-    "2  ", 
-    "3  ", 
-    "4  ", 
-    "5  ",
-    "6  ",
-    "7  ",
-    "8  ",
-    "9  ",
-    "10"
-  ];
-
-  var likert_trial = {
-    type: 'survey-likert',
-    scale_width: 400,
-    questions: [
-      {prompt: "I felt safe to cross.", name: 'Vegetables', labels: scale_1},
-      {prompt: "I like fruit.", name: 'Fruit', labels: scale_1},
-      {prompt: "I like meat.", name: 'Meat', labels: scale_1},
-      {prompt: "I like dairy.", name: 'Dairy', labels: scale_1}
-    ],
-  };
   var save_data_block = {
     type: 'call-function',
     func:  function() {
@@ -340,8 +300,6 @@ function getRandomInt(min, max) {
   /* create experiment timeline array */
   var timeline = [];
   timeline.push(instructions_block);
-  timeline.push(likert_trial);
-  timeline.push(slider_trial);
   timeline.push(video_block_1);
   timeline.push(save_data_block);
   timeline.push(between_block_1);
