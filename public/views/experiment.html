@@ -8,6 +8,7 @@
     <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
     <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
+    <script src='jsPsych/plugins/jspsych-survey-likert.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
     <link rel='icon' type='image/png' href='/img/favicon.png' />
@@ -294,6 +295,25 @@ function getRandomInt(min, max) {
       labels: ['Not safe', 'Safe'],
       prompt: "<p>How safe did you feel to cross?</p>"
   };
+  var scale_1 = [
+    "1", 
+    "2", 
+    "3", 
+    "4", 
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ];
+
+  var likert_trial = {
+    type: 'survey-likert',
+    questions: [
+      {prompt: "I felt safe to cross.", labels: scale_1}
+    ]
+  };
   var save_data_block = {
     type: 'call-function',
     func:  function() {
@@ -316,6 +336,7 @@ function getRandomInt(min, max) {
   /* create experiment timeline array */
   var timeline = [];
   timeline.push(instructions_block);
+  timeline.push(likert_trial);
   timeline.push(slider_trial);
   timeline.push(video_block_1);
   timeline.push(save_data_block);
