@@ -287,6 +287,12 @@ function getRandomInt(min, max) {
     cont_key: ['C'],
     stimulus: '<p>You have now completed 25 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
   };
+  var slider_trial = {
+      type: 'html-slider-response',
+      stimulus: '<p>Safety of crossing</p>',
+      labels: ['Not safe', 'Safe'],
+      prompt: "<p>How safe did you feel to cross?</p>"
+  };
   var save_data_block = {
     type: 'call-function',
     func:  function() {
@@ -309,6 +315,7 @@ function getRandomInt(min, max) {
   /* create experiment timeline array */
   var timeline = [];
   timeline.push(instructions_block);
+  timeline.push(slider_trial);
   timeline.push(video_block_1);
   timeline.push(save_data_block);
   timeline.push(between_block_1);
