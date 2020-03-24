@@ -310,10 +310,13 @@ function getRandomInt(min, max) {
 
   var likert_trial = {
     type: 'survey-likert',
-    scale_width:400,
+    scale_width: 400,
     questions: [
-      {prompt: "I felt safe to cross.", labels: scale_1}
-    ]
+      {prompt: "I felt safe to cross.", name: 'Vegetables', labels: scale_1},
+      {prompt: "I like fruit.", name: 'Fruit', labels: scale_1},
+      {prompt: "I like meat.", name: 'Meat', labels: scale_1},
+      {prompt: "I like dairy.", name: 'Dairy', labels: scale_1}
+    ],
   };
   var save_data_block = {
     type: 'call-function',
