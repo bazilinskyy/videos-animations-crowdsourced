@@ -16,18 +16,31 @@
   <script>
 
 
-/**
- * Returns a random integer between min (inclusive) and max (inclusive).
- * The value is no lower than min (or the next integer greater than min
- * if min isn't an integer) and no greater than max (or the next integer
- * lower than max if max isn't an integer).
- * Using Math.round() will give you a non-uniform distribution!
- */
-function getRandomInt(min, max) {
+  /**
+   * Returns a random integer between min (inclusive) and max (inclusive).
+   * The value is no lower than min (or the next integer greater than min
+   * if min isn't an integer) and no greater than max (or the next integer
+   * lower than max if max isn't an integer).
+   * Using Math.round() will give you a non-uniform distribution!
+   */
+  function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  }
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+  };
 
   /* define test block */
   var test_stimuli_1 = [];
@@ -64,7 +77,6 @@ function getRandomInt(min, max) {
   for (var i = 1; i <= videos_n_1; i++) {
       video_ids_1.push(i);
   }
-  // video_ids = video_ids.slice(1);
   video_ids_1 = shuffle(video_ids_1);
 
   // group 2
@@ -73,12 +85,13 @@ function getRandomInt(min, max) {
   for (var i = 29; i <= videos_n_2; i++) {
       video_ids_2.push(i);
   }
-  // video_ids = video_ids.slice(1);
   video_ids_2 = shuffle(video_ids_2);
 
   // random choose group 1 or 2
   var group_choice = getRandomInt(1, 4);
   var stimulus_str = '';
+
+  console.log(getRandomInt(1, 4).match(/\d+/)[0])
 
 
   if (group_choice == 1) {  // group 1 with instructions (videos 1-28)
@@ -318,18 +331,7 @@ function getRandomInt(min, max) {
   timeline.push(video_block_6);
   timeline.push(save_data_block);
 
-  var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-  };
+
 
   /* MTurk information */
   var turkInfo = jsPsych.turk.turkInfo();
