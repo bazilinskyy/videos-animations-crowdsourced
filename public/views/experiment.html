@@ -42,6 +42,15 @@
     }
   };
 
+  function getFinishCode() {
+      var timestamp = window.performance.timing.navigationStart + window.performance.now();
+      var current_time = Math.round(timestamp);
+      var random_num = getRandomInt(1, 1000000);
+      finish_code = 'FIN7ANIM' + current_time + random_num;
+      console.log(finish_code);
+    return finish_code;
+  }
+
   /* define test block */
   var test_stimuli_1 = [];
   var test_stimuli_2 = [];
@@ -89,9 +98,12 @@
   video_ids_2 = shuffle(video_ids_2);
 
   // random choose group 1 or 2
-  // var group_choice = getRandomInt(1, 4);
-  var group_choice = getUrlParameter('work').match(/\d+/)[0] % num_groups;
-  var stimulus_str = '';  
+  var group_choice = getRandomInt(0, 3);
+  // var group_choice = getUrlParameter('work').match(/\d+/)[0] % num_groups;
+  var stimulus_str = '';
+
+  console.log(getFinishCode());
+  console.log(group_choice);
 
   if (group_choice == 0) {  // group 1 with instructions (videos 1-28)
       video_ids = video_ids_1;
@@ -126,7 +138,7 @@
       {
         sources: [video_name],
         on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+          jsPsych.data.addDataToLastTrial({worker_code: getFinishCode()});
         }
       }
     );
@@ -140,7 +152,7 @@
       {
         sources: [video_name],
         on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+          jsPsych.data.addDataToLastTrial({worker_code: getFinishCode()});
         }
       }
     );
@@ -154,7 +166,7 @@
       {
         sources: [video_name],
         on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+          jsPsych.data.addDataToLastTrial({worker_code: getFinishCode()});
         }
       }
     );
@@ -168,7 +180,7 @@
       {
         sources: [video_name],
         on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+          jsPsych.data.addDataToLastTrial({worker_code: getFinishCode()});
         }
       }
     );
@@ -182,7 +194,7 @@
       {
         sources: [video_name],
         on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+          jsPsych.data.addDataToLastTrial({worker_code: getFinishCode()});
         }
       }
     );
@@ -196,7 +208,7 @@
       {
         sources: [video_name],
         on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: getUrlParameter('work')});
+          jsPsych.data.addDataToLastTrial({worker_code: getFinishCode()});
         }
       }
     );
@@ -351,7 +363,7 @@
     timeline: timeline,
     max_load_time: 3000000,
     on_finish: function() {
-     window.location.href = 'finish?work=FIN7' + getUrlParameter('work');
+      window.location.href = 'finish?work=' + getFinishCode();
     }
   });
 
