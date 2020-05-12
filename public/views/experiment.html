@@ -161,6 +161,7 @@ for (var i = 0; i < n_videos / n_videos_per_block; i++) {
         if (i * j <= n_videos) {
             timeline.push(video_stimuli[i * j]);  // page with the stimulus
             timeline.push(slider_block);
+            console.log(i, j);
         }
     }
     // save data
