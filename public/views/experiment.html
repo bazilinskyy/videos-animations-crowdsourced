@@ -86,8 +86,17 @@ for (var i = n_videos/2 + 1; i <= n_videos; i++) {
     video_ids_2.push(i);
 }
 // shuffle array with video IDs
-video_ids_1 = shuffle(video_ids_1);
-video_ids_2 = shuffle(video_ids_2);
+if (group_choice == 1) {  // in group 1 first show videos from group 1 and then from group 2
+	video_ids_1 = shuffle(video_ids_1);
+	video_ids_2 = shuffle(video_ids_2);
+} else if (group_choice == 2) {  // in group 2 first show videos from group 2 and then from group 1
+	video_ids_1 = shuffle(video_ids_2);
+	video_ids_2 = shuffle(video_ids_1);
+} else {
+	console.error('Wrong group id specified: ', group_choice);
+}
+console.log(group_choice);
+
 // build array with videos with stimuli
 for (var i = 0; i < n_videos; i++) {
     // check if group 1 or 2
