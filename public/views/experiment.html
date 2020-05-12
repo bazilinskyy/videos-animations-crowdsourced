@@ -96,6 +96,7 @@ for (var i = 0; i < n_videos; i++) {
     } else {  //  group 2
         video_id = video_ids_2[i - n_videos / 2];
     }
+    console.log(i, video_pfefix + video_id + '.mp4');
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         autoplay: true,
