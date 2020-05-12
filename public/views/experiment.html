@@ -91,11 +91,12 @@ video_ids_2 = shuffle(video_ids_2);
 // build array with videos with stimuli
 for (var i = 1; i <= n_videos; i++) {
     // check if group 1 or 2
-    if (i < n_videos/2) { // group 1
+    if (i < n_videos / 2) { // group 1
         video_id = video_ids_1[i];
     } else {  //  group 2
         video_id = video_ids_2[i] - n_videos / 2;
     }
+    console.log(video_pfefix + video_id + '.mp4');
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         autoplay: true,
