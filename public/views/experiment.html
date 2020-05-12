@@ -6,7 +6,7 @@
     <script src='jsPsych/jspsych.js'></script>
     <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
-    <script src='jsPsych/plugins/jspsych-image-slider-response.js'></script>
+    <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
@@ -114,9 +114,9 @@ for (var i = 1; i <= n_videos; i++) {
 }
 // black with text to continue before showing the image
 var slider_block = {
-    type: 'image-slider-response',
-    timeline: test_stimuli_1,
+    type: 'html-slider-response'
     labels: ['0', '20', '40', '60', '80', '100'],
+    stimulus: '<p></p>',
     slider_width: 1000,
     // labels: ['Not intuitive at all', 'Completely intuitive'],
     prompt: "<p style='width: 1000px'>Please rate the following statement: <strong>The behaviour of the car in the previous video is intuitive for signaling \'Please cross the road\'</strong> (0 = completely disagree, 100 = completely agree).</p>",
