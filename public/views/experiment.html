@@ -157,8 +157,11 @@ timeline.push(instructions_block);
 for (var i = 0; i < n_videos / n_videos_per_block; i++) {
     // iterate over videos per block
     for (var j = 0; j < n_videos_per_block; j++) {
-        timeline.push(video_stimuli[i * j]);  // page with the stimulus
-        timeline.push(slider_block);
+        // check if it's the last block and no more videos are needed
+        if (i * j <= n_videos) {
+            timeline.push(video_stimuli[i * j]);  // page with the stimulus
+            timeline.push(slider_block);
+        }
     }
     // save data
     timeline.push(save_data_block);
