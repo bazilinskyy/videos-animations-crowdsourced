@@ -20,7 +20,7 @@
 // Constants
 var n_videos = 56; // number of videos
 var n_videos_per_block = 4; // number of videos in each block
-var video_pfefix = 'videos/video_'; // prefix for videos
+var video_prefix = 'videos/video_'; // prefix for videos
 
 /**
 * Returns a random integer between min (inclusive) and max (inclusive).
@@ -106,7 +106,7 @@ for (var i = 0; i < n_videos; i++) {
     } else {  //  group 2
         video_id = video_ids_2[i - n_videos / 2];
     }
-    console.log(i, video_pfefix + video_id + '.mp4');
+    console.log(i, video_prefix + video_id + '.mp4');
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         autoplay: true,
@@ -114,7 +114,7 @@ for (var i = 0; i < n_videos; i++) {
         width: 1280,
         height: 720,
         choices: ['F'],
-        sources: [video_pfefix + video_id + '.mp4'],
+        sources: [video_prefix + video_id + '.mp4'],
         prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
@@ -123,7 +123,7 @@ for (var i = 0; i < n_videos; i++) {
         }
     });
 }
-// black with text to continue before showing the image
+// block with text to continue before showing the image
 var slider_block = {
     type: 'html-slider-response',
     labels: ['0', '20', '40', '60', '80', '100'],
