@@ -224,6 +224,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // don't add the between block after the last trial
     if (i != n_videos * n_repeat / n_videos_per_block - 1 && (i + 1) % n_break == 0) {
       timeline.push(between_blocks[i]);
+      console.log(i, between_blocks[i]);
     }
 }
 console.log(video_ids_1);
