@@ -22,6 +22,7 @@
 var n_videos = 56; // number of videos
 var n_videos_per_block = 4; // number of videos in each block
 var video_prefix = 'videos/video_'; // prefix for videos
+var image_pfefix = 'img/'; // prefix for images
 
 /**
 * Returns a random integer between min (inclusive) and max (inclusive).
@@ -227,6 +228,7 @@ console.log(timeline);
 jsPsych.init({
   // auto_preload: false,
     show_preload_progress_bar: true,
+    preload_images: [image_pfefix + 'black_frame.png'],
     timeline: timeline,
     max_load_time: 3000000,
     on_finish: function() {
