@@ -20,6 +20,7 @@
 
 // Constants
 var n_videos = 56; // number of videos
+var n_repeat = 2; // number of repeats of each condition
 var n_videos_per_block = 4; // number of videos in each block
 var video_prefix = 'videos/video_'; // prefix for videos
 var image_pfefix = 'img/'; // prefix for images
@@ -80,7 +81,9 @@ var video_stimuli = []; // blocks with videos
 var videos_n_1 = 28; // number of videos + 1
 var video_ids_1 = [];
 for (var i = 1; i <= videos_n_1; i++) {
-    video_ids_1.push(i);
+    for (var j = 0; j < n_repeat; j++) {
+        video_ids_1.push(i);
+    }
 }
 video_ids_1 = shuffle(video_ids_1);
 
@@ -88,7 +91,9 @@ video_ids_1 = shuffle(video_ids_1);
 var videos_n_2 = 56; // number of videos + 1  
 var video_ids_2 = [];
 for (var i = 29; i <= videos_n_2; i++) {
-    video_ids_2.push(i);
+    for (var j = 0; j < n_repeat; j++) {
+        video_ids_2.push(i);
+    }
 }
 video_ids_2 = shuffle(video_ids_2);
 
@@ -116,7 +121,7 @@ var instructions_block = {
 console.log('video_ids', video_ids);
 
 // build array with videos with stimuli
-for (var i = 0; i < n_videos; i++) {
+for (var i = 0; i < n_videos * n_repeat; i++) {
     console.log(i, video_prefix + video_ids[i] + '.mp4');
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
@@ -151,7 +156,7 @@ var slider_block = {
     require_movement: true
 };
 // build between blocks
-for (var i = 1; i <= n_videos / n_videos_per_block - 1; i++) {
+for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
     var videos_done = n_videos_per_block * i;
     between_blocks.push({
         type: 'html-keyboard-response',
@@ -194,7 +199,7 @@ var save_data_block = {
 var timeline = [];
 timeline.push(instructions_block);
 // iterate over blocks
-for (var i = 0; i < n_videos / n_videos_per_block; i++) {
+for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // iterate over videos per block
     for (var j = 0; j < n_videos_per_block; j++) {
         // check if it's the last block and no more videos are needed
@@ -209,12 +214,12 @@ for (var i = 0; i < n_videos / n_videos_per_block; i++) {
         }
     }
     // save data
-    if (i != n_videos / n_videos_per_block - 1) {
+    if (i == n_videos * n_repeat / n_videos_per_block - 1) {
       timeline.push(question_block);
     }
     timeline.push(save_data_block);
     // don't add the between block after the last trial
-    if (i != n_videos / n_videos_per_block - 1) {
+    if (i != n_videos * n_repeat / n_videos_per_block - 1) {
       timeline.push(between_blocks[i]);
     }
 }
