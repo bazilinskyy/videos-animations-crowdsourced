@@ -19,7 +19,7 @@
 // by Pavlo Bazilinskyy <p.bazilinskyy@tudelft.nl>
 
 // Constants
-var n_videos = 56; // number of videos
+var n_videos = 28; // number of videos
 var n_repeat = 2; // number of repeats of each condition
 var n_videos_per_block = 4; // number of videos in each block
 var video_prefix = 'videos/video_'; // prefix for videos
@@ -160,7 +160,7 @@ for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
     var videos_done = n_videos_per_block * i;
     between_blocks.push({
         type: 'html-keyboard-response',
-        stimulus: '<p>You have now completed ' + videos_done + ' videos out of ' + n_videos + '. When ready press \'C\' to proceed to the next batch.</p>',
+        stimulus: '<p>You have now completed ' + videos_done + ' videos out of ' + n_videos * n_repeat + '. When ready press \'C\' to proceed to the next batch.</p>',
         choices: ['C']
     });
 }
