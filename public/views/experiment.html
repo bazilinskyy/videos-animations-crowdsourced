@@ -157,7 +157,7 @@ var slider_block = {
     require_movement: true
 };
 // build between blocks
-for (var i = 1; i <= n_videos * n_repeat / n_break - 1; i++) {
+for (var i = 1; i <= n_videos * n_repeat / n_break; i++) {
     var videos_done = n_break * i;
     between_blocks.push({
         type: 'html-keyboard-response',
@@ -222,7 +222,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     }
     timeline.push(save_data_block);
     // don't add the between block after the last trial
-    if (i != n_videos * n_repeat / n_videos_per_block - 1 && i % n_break == 0) {
+    if (i != n_videos * n_repeat / n_videos_per_block - 1 && (i + 1) % n_break == 0) {
       timeline.push(between_blocks[i]);
     }
 }
