@@ -139,16 +139,17 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
         }
     });
 }
-// block with text to continue before showing the image
+// block with text question in the end of the study
 var question_block = {
     type: 'survey-multi-choice',
     questions: [
       {prompt: "In the current study, the car went to the <strong>left when yielding, and to the right when not yielding</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: to the <strong>right when yielding and to the left when not yielding</strong>. Select your answer", options: ["I prefer the mapping <strong>left when yielding, and to the right when not yielding<strong>", "I prefer the mapping <strong>right when yielding and to the left when not yielding</strong>"], required: true, horizontal: true,}
     ],
 };
-// block with text question int he end of the study
+// block with slider for each video
 var slider_block = {
     type: 'html-slider-response',
+    labels: ['0', '20', '40', '60', '80', '100'],
     stimulus: "<p style='width: 1000px'>Please rate the following statement: <strong>The behaviour of the car in the previous video is intuitive for signaling that <strong>the car stopped or did not stop</strong></p>",
     slider_width: 1000,
     prompt: "0 = completely disagree, 100 = completely agree",
