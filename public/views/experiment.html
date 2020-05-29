@@ -1,11 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <title>Videos of eHMI from Unity</title>
+    <title>Experiment page</title>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src='jsPsych/jspsych.js'></script>
     <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
+    <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
+    <script src='jsPsych/plugins/jspsych-survey-multi-choice.js'></script>
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
@@ -14,366 +16,220 @@
   <body>
   </body>
   <script>
+// by Pavlo Bazilinskyy <p.bazilinskyy@tudelft.nl>
 
+// Constants
+var n_videos = 56; // number of videos
+var n_videos_per_block = 4; // number of videos in each block
+var video_prefix = 'videos/video_'; // prefix for videos
 
-  /**
-   * Returns a random integer between min (inclusive) and max (inclusive).
-   * The value is no lower than min (or the next integer greater than min
-   * if min isn't an integer) and no greater than max (or the next integer
-   * lower than max if max isn't an integer).
-   * Using Math.round() will give you a non-uniform distribution!
-   */
-  function getRandomInt(min, max) {
+/**
+* Returns a random integer between min (inclusive) and max (inclusive).
+* The value is no lower than min (or the next integer greater than min
+* if min isn't an integer) and no greater than max (or the next integer
+* lower than max if max isn't an integer).
+* Using Math.round() will give you a non-uniform distribution!
+*/
+function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+}
 
-  var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
+/**
+ * Get finish code for the worker.
+ */
+function getFinishCode() {
+    var timestamp = window.performance.timing.navigationStart + window.performance.now();
+    var current_time = Math.round(timestamp);
+    var random_num = getRandomInt(1, 10000);
+    finish_code = 'Q6' + current_time + 'BV' + random_num + '2M';
+    return finish_code;
+}
+
+var finish_code = getFinishCode();
+
+/**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+var group_choice = getRandomInt(0, 3);
+console.log(finish_code);
+console.log(group_choice);
+
+if (group_choice == 0) {  // group 1 with instructions (videos 1-28)
+    video_ids = video_ids_1;
+    stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+} else if (group_choice == 1)  { // group 2 with no instructions (videos 1-28)
+    video_ids = video_ids_1;
+    stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+} else if (group_choice == 2)  { // group 3 with instructions (videos 29-56)
+    video_ids = video_ids_2;
+    stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+} else if (group_choice == 3)  { // group 4 with no instructions (videos 29-56)
+    video_ids = video_ids_2;
+    stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+}
+
+// Arrays for storing data
+var video_ids_1 = [];  // IDs of videos in stimuli in 1st part
+var video_ids_2 = [];  // IDs of videos in stimuli in 2nd part
+var between_blocks = []; // instructions between blocks
+var video_stimuli = []; // blocks with videos
+
+// group 1
+// create array of video_ids, remove 0th id, shuffle
+var videos_n_1 = 28; // number of videos + 1
+var video_ids_1 = [];
+for (var i = 1; i <= videos_n_1; i++) {
+    video_ids_1.push(i);
+}
+video_ids_1 = shuffle(video_ids_1);
+
+// group 2
+var videos_n_2 = 56; // number of videos + 1  
+var video_ids_2 = [];
+for (var i = 29; i <= videos_n_2; i++) {
+    video_ids_2.push(i);
+}
+video_ids_2 = shuffle(video_ids_2);
+
+// define instructions block
+var instructions_block = {
+  type: 'html-keyboard-response',
+  stimulus: stimulus_str,
+  choices: ['C'],
+};
+
+// build array with videos with stimuli
+for (var i = 0; i < n_videos; i++) {
+    console.log(i, video_prefix + video_ids[i] + '.mp4');
+    video_stimuli.push({
+        type: 'video-keyboard-multiple-responses-release',
+        autoplay: true,
+        controls: false,
+        width: 1280,
+        height: 720,
+        choices: ['F'],
+        sources: [video_prefix + video_ids[i] + '.mp4'],
+        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+        on_finish: function(data) {
+            jsPsych.data.addDataToLastTrial({
+                worker_code: finish_code
+            });
+        }
+    });
+}
+// block with text to continue before showing the image
+var question_block = {
+    type: 'survey-multi-choice',
+    questions: [
+      {prompt: "In the current study, the car went to the <strong>left when yielding, and to the right when not yielding</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: to the <strong>right when yielding and to the left when not yielding</strong>. Select your answer", options: ["I prefer the mapping <strong>left when yielding, and to the right when not yielding<strong>", "I prefer the mapping <strong>right when yielding and to the left when not yielding</strong>"], required: true, horizontal: true,}
+    ],
+};
+// block with text question int he end of the study
+var slider_block = {
+    type: 'html-slider-response',
+    stimulus: '<p></p>',
+    slider_width: 1000,
+    // labels: ['Not intuitive at all', 'Completely intuitive'],
+    prompt: "<p style='width: 1000px'>Please rate the following statement: <strong>The behaviour of the car in the previous video is intuitive for signaling that <strong>the car stopped or did not stop</strong> (0 = completely disagree, 100 = completely agree).</p>",
+    require_movement: true
+};
+// build between blocks
+for (var i = 1; i <= n_videos / n_videos_per_block - 1; i++) {
+    var videos_done = n_videos_per_block * i;
+    between_blocks.push({
+        type: 'html-keyboard-response',
+        stimulus: '<p>You have now completed ' + videos_done + ' videos out of ' + n_videos + '. When ready press \'C\' to proceed to the next batch.</p>',
+        choices: ['C']
+    });
+}
+// continue before showing the image
+var continue_block = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>Press \'C\' to continue to the next video.</p>',
+    choices: ['C']
+};
+// black with image to be added before each video
+var image_block = {
+    type: 'html-keyboard-response',
+    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+    choices: ['F'],
+};
+// block for sending data
+var save_data_block = {
+    type: 'call-function',
+    func: function() {
+        $.ajax({
+                type: 'POST',
+                url: '/experiment-data',
+                data: jsPsych.data.get().json(),
+                contentType: 'application/json'
+            })
+            .done(function() {
+                jsPsych.data.reset();
+            })
+            .fail(function() {
+                alert('A problem occurred while writing to the database. Please contact the researcher for more information.')
+                window.location.href = '/';
+            })
+    }
+}
+// create experiment timeline array
+var timeline = [];
+timeline.push(instructions_block);
+// iterate over blocks
+for (var i = 0; i < n_videos / n_videos_per_block; i++) {
+    // iterate over videos per block
+    for (var j = 0; j < n_videos_per_block; j++) {
+        // check if it's the last block and no more videos are needed
+        if (i * n_videos_per_block + j < n_videos) {
+            if (j != 0) {  // add the continue page before all videos except for the 1st one
+                timeline.push(continue_block);
+            }
+            timeline.push(image_block);  // page with an image asking to press the key
+            timeline.push(video_stimuli[i * n_videos_per_block + j]);  // page with the stimulus
+            timeline.push(slider_block);
+            console.log(i, j, i * n_videos_per_block + j, video_stimuli[i * n_videos_per_block + j]);
         }
     }
-  };
+    // save data
+    if (i != n_videos / n_videos_per_block - 1) {
+      timeline.push(question_block);
+    }
+    timeline.push(save_data_block);
+    // don't add the between block after the last trial
+    if (i != n_videos / n_videos_per_block - 1) {
+      timeline.push(between_blocks[i]);
+    }
+}
+console.log(video_ids_1);
+console.log(video_ids_2);
+console.log(between_blocks);
+console.log(video_stimuli);
+console.log(timeline);
 
-  function getFinishCode() {
-      var timestamp = window.performance.timing.navigationStart + window.performance.now();
-      var current_time = Math.round(timestamp);
-      var random_num = getRandomInt(1, 10000);
-      finish_code = 'F7' + current_time + 'AN' + random_num + '7B';
-    return finish_code;
-  }
-
-  var finish_code = getFinishCode();
-
-  /* define test block */
-  var test_stimuli_1 = [];
-  var test_stimuli_2 = [];
-  var test_stimuli_3 = [];
-  var test_stimuli_4 = [];
-  var test_stimuli_5 = [];
-  var test_stimuli_6 = [];
-  var test_stimuli_7 = [];
-  var test_stimuli_8 = [];
-
-  /**
-   * Shuffles array in place.
-   * @param {Array} a items An array containing the items.
-   */
-  function shuffle(a) {
-      var j, x, i;
-      for (i = a.length - 1; i > 0; i--) {
-          j = Math.floor(Math.random() * (i + 1));
-          x = a[i];
-          a[i] = a[j];
-          a[j] = x;
-      }
-      return a;
-  }
-
-  // video_prefix = 'https://videos-animations-crowdsourced.s3.eu-central-1.amazonaws.com/video_';
-  var video_prefix = 'videos/video_';
-  var num_groups = 4;
-
-  // group 1
-  // create array of video_ids, remove 0th id, shuffle
-  var videos_n_1 = 28; // number of videos + 1
-  var video_ids_1 = [];
-  for (var i = 1; i <= videos_n_1; i++) {
-      video_ids_1.push(i);
-  }
-  video_ids_1 = shuffle(video_ids_1);
-
-  // group 2
-  var videos_n_2 = 56; // number of videos + 1  
-  var video_ids_2 = [];
-  for (var i = 29; i <= videos_n_2; i++) {
-      video_ids_2.push(i);
-  }
-  video_ids_2 = shuffle(video_ids_2);
-
-  // random choose group 1 or 2
-  var group_choice = getRandomInt(0, 3);
-  // var group_choice = getUrlParameter('work').match(/\d+/)[0] % num_groups;
-  var stimulus_str = '';
-
-  console.log(finish_code);
-  console.log(group_choice);
-
-  if (group_choice == 0) {  // group 1 with instructions (videos 1-28)
-      video_ids = video_ids_1;
-      stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
-  } else if (group_choice == 1)  { // group 2 with no instructions (videos 1-28)
-      video_ids = video_ids_1;
-      stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
-  } else if (group_choice == 2)  { // group 3 with instructions (videos 29-56)
-      video_ids = video_ids_2;
-      stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
-  } else if (group_choice == 3)  { // group 4 with no instructions (videos 29-56)
-      video_ids = video_ids_2;
-      stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view 28 animations. Press \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each 5 videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
-  }
-
-  console.log(group_choice);
-  console.log(video_ids);
-  console.log(stimulus_str);
-
-    /* define instructions block */
-  var instructions_block = {
-    type: 'html-keyboard-response',
-    stimulus: stimulus_str,
-    choices: ['C'],
-  };
-
-  // continue before showing the image
-  var continue_block = {
-      type: 'html-keyboard-response',
-      stimulus: '<p>Press \'C\' to continue to the next video.</p>',
-      choices: ['C']
-  };
-  // black with image to be added before each video
-  var image_block = {
-      type: 'html-keyboard-response',
-      stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-      choices: ['F'],
-  };
-
-  /* dynamically build a list of videos for block 1 */
-  for (var i = 0; i <= 4; i++) {
-      if (i != 0) {
-        test_stimuli_1.push(continue_block);
-      }
-      test_stimuli_1.push(image_block);
-      video_name = video_prefix + video_ids[i] + '.mp4';
-      video_type = 'video_'+ video_ids[i];
-      test_stimuli_1.push(
-      {
-        type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
-        autoplay: true,
-        controls: false,
-        width: 1280,
-        height: 720,
-        choices: ['F'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        sources: [video_name],
-        on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-        }
-      }
-    );
-  }
-
-  /* dynamically build a list of videos for block 2 */
-  for (var i = 5; i <= 9; i++) {
-      if (i != 5) {
-        test_stimuli_2.push(continue_block);
-      }
-      test_stimuli_2.push(image_block);
-      video_name = video_prefix + video_ids[i] + '.mp4';
-      video_type = 'video_'+ video_ids[i];
-      test_stimuli_2.push(
-      {
-        type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
-        autoplay: true,
-        controls: false,
-        width: 1280,
-        height: 720,
-        choices: ['F'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        sources: [video_name],
-        on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-        }
-      }
-    );
-  }
-
-  /* dynamically build a list of videos for block 3 */
-  for (var i = 10; i <= 14; i++) {
-      if (i != 10) {
-        test_stimuli_3.push(continue_block);
-      }
-      test_stimuli_3.push(image_block);
-      video_name = video_prefix + video_ids[i] + '.mp4';
-      video_type = 'video_'+ video_ids[i];
-      test_stimuli_3.push(
-      {
-        type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
-        autoplay: true,
-        controls: false,
-        width: 1280,
-        height: 720,
-        choices: ['F'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        sources: [video_name],
-        on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-        }
-      }
-    );
-  }
-
-  /* dynamically build a list of videos for block 4 */
-  for (var i = 15; i <= 19; i++) {
-      if (i != 15) {
-        test_stimuli_4.push(continue_block);
-      }
-      test_stimuli_4.push(image_block);
-      video_name = video_prefix + video_ids[i] + '.mp4';
-      video_type = 'video_'+ video_ids[i];
-      test_stimuli_4.push(
-      {
-        type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
-        autoplay: true,
-        controls: false,
-        width: 1280,
-        height: 720,
-        choices: ['F'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        sources: [video_name],
-        on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-        }
-      }
-    );
-  }
-
-  /* dynamically build a list of videos for block 5 */
-  for (var i = 20; i <= 24; i++) {
-      if (i != 20) {
-        test_stimuli_5.push(continue_block);
-      }
-      test_stimuli_5.push(image_block);
-      video_name = video_prefix + video_ids[i] + '.mp4';
-      video_type = 'video_'+ video_ids[i];
-      test_stimuli_5.push(
-      {
-        type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
-        autoplay: true,
-        controls: false,
-        width: 1280,
-        height: 720,
-        choices: ['F'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        sources: [video_name],
-        on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-        }
-      }
-    );
-  }
-
-  /* dynamically build a list of videos for block 1 */
-  for (var i = 25; i <= 27; i++) {
-      if (i != 25) {
-        test_stimuli_6.push(continue_block);
-      }
-      test_stimuli_6.push(image_block);
-      video_name = video_prefix + video_ids[i] + '.mp4';
-      video_type = 'video_'+ video_ids[i];
-      test_stimuli_6.push(
-      {
-        type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
-        autoplay: true,
-        controls: false,
-        width: 1280,
-        height: 720,
-        choices: ['F'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        sources: [video_name],
-        on_finish: function(data){
-          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-        }
-      }
-    );
-  }
-  var between_block_1 = {
-    type: 'html-keyboard-response',
-    stimulus: '<p>You have now completed 5 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
-    choices: ['C']
-  };
-  var between_block_2 = {
-    type: 'html-keyboard-response',
-    cont_key: ['C'],
-    stimulus: '<p>You have now completed 10 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
-  };
-  var between_block_3 = {
-    type: 'html-keyboard-response',
-    cont_key: ['C'],
-    stimulus: '<p>You have now completed 15 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
-  };
-  var between_block_4 = {
-    type: 'html-keyboard-response',
-    cont_key: ['C'],
-    stimulus: '<p>You have now completed 20 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
-  };
-  var between_block_5 = {
-    type: 'html-keyboard-response',
-    cont_key: ['C'],
-    stimulus: '<p>You have now completed 25 videos out of 28. When ready press \'C\' to proceed to the next batch.</p>',
-  };
-  var save_data_block = {
-    type: 'call-function',
-    func:  function() {
-      $.ajax({
-          type: 'POST',
-          url: '/experiment-data',
-          data: jsPsych.data.get().json(),
-          contentType: 'application/json'
-        })
-        .done(function() {
-          jsPsych.data.reset();
-        })
-        .fail(function() {
-          alert('A problem occurred while writing to the database. Please contact the researcher for more information.')
-          window.location.href = '/';
-        })
-      }
-  }
-
-  /* create experiment timeline array */
-  var timeline = [];
-  timeline.push(instructions_block);
-  timeline.push(test_stimuli_2);
-  timeline.push(save_data_block);
-  timeline.push(between_block_1);
-  timeline.push(test_stimuli_2);
-  timeline.push(save_data_block);
-  timeline.push(between_block_2);
-  timeline.push(test_stimuli_3);
-  timeline.push(save_data_block);
-  timeline.push(between_block_3);
-  timeline.push(test_stimuli_4);
-  timeline.push(save_data_block);
-  timeline.push(between_block_4);
-  timeline.push(test_stimuli_5);
-  timeline.push(save_data_block);
-  timeline.push(between_block_5);
-  timeline.push(test_stimuli_6);
-  timeline.push(save_data_block);
-
-  /* Start the experiment */
-  jsPsych.init({
+/* Start the experiment */
+jsPsych.init({
+  // auto_preload: false,
     show_preload_progress_bar: true,
-    preload_images: condition_images.concat([image_pfefix + 'black_frame.png']),
     timeline: timeline,
     max_load_time: 3000000,
     on_finish: function() {
-      window.location.href = 'finish?work=' + finish_code;
+        window.location.href = 'finish?work=' + finish_code;
     }
-  });
-
+});
 </script>
 </html>
