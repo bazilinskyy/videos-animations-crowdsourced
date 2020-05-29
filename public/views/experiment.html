@@ -201,30 +201,34 @@ var timeline = [];
 timeline.push(question_block);
 timeline.push(slider_block);
 timeline.push(instructions_block);
-// iterate over blocks
-for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
-    // iterate over videos per block
-    for (var j = 0; j < n_videos_per_block; j++) {
-        // check if it's the last block and no more videos are needed
-        if (i * n_videos_per_block + j < n_videos * n_repeat) {
-            if (j != 0) {  // add the continue page before all videos except for the 1st one
-                timeline.push(continue_block);
-            }
-            timeline.push(image_block);  // page with an image asking to press the key
-            timeline.push(video_stimuli[i * n_videos_per_block + j]);  // page with the stimulus
-            timeline.push(slider_block);
-            console.log(i, j, i * n_videos_per_block + j, video_stimuli[i * n_videos_per_block + j]);
-        }
+// iterate over images
+var between_blocks_count = 0;  // counter of shown between blocks
+for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
+    // check if the last image was reached
+    if (i >= n_videos * n_repeat) {
+        break;
+    }
+    // add the continue page before all images except for the 1st one
+    if (i != 0) {
+        timeline.push(continue_block);
+    }
+    timeline.push(image_block);  // page with an image asking to press the key
+    timeline.push(video_stimuli[i]);  // page with the stimulus
+    timeline.push(slider_block);
+    console.log(i, video_stimuli[i]);
+    // question in the end
+    if (i == n_videos * n_videos_per_block - 1) {
+        timeline.push(question_block);
     }
     // save data
-    if (i == n_videos * n_repeat / n_videos_per_block - 1) {
-      timeline.push(question_block);
+    if ((i + 1) % n_videos_per_block == 0) {
+        timeline.push(save_data_block);
     }
-    timeline.push(save_data_block);
     // don't add the between block after the last trial
-    if (i != n_videos * n_repeat / n_videos_per_block - 1 && (i + 1) % n_break == 0) {
-      timeline.push(between_blocks[i]);
-      console.log(i, between_blocks[i]);
+    if ((i + 1) % n_break == 0 && i != 0) {
+        console.log('added break', i, between_blocks[between_blocks_count]);
+        timeline.push(between_blocks[between_blocks_count]);
+        between_blocks_count++;
     }
 }
 console.log(video_ids_1);
