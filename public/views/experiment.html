@@ -25,6 +25,7 @@ var n_videos_per_block = 4; // number of videos in each block
 var n_break = 10; // number of videos between each break
 var video_prefix = 'videos/video_'; // prefix for videos
 var image_pfefix = 'img/'; // prefix for images
+var DEBUG = false; // switch for debugging output
 
 /**
 * Returns a random integer between min (inclusive) and max (inclusive).
@@ -68,8 +69,6 @@ function shuffle(a) {
 }
 
 var group_choice = getRandomInt(0, 3);
-console.log(finish_code);
-console.log(group_choice);
 
 // Arrays for storing data
 var video_ids_1 = [];  // IDs of videos in stimuli in 1st part
@@ -119,11 +118,11 @@ var instructions_block = {
   choices: ['C'],
 };
 
-console.log('video_ids', video_ids);
-
 // build array with videos with stimuli
 for (var i = 0; i < n_videos * n_repeat; i++) {
-    console.log(i, video_prefix + video_ids[i] + '.mp4');
+    if (DEBUG) {
+        console.log(i, video_prefix + video_ids[i] + '.mp4');
+    }
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         autoplay: true,
@@ -132,7 +131,7 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
         height: 720,
         choices: ['F'],
         sources: [video_prefix + video_ids[i] + '.mp4'],
-        prompt: '<p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross.</p>',
+        prompt: '<p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross; press again when safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
                 worker_code: finish_code
@@ -174,7 +173,7 @@ var continue_block = {
 // black with image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
-    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross.</p>',
+    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross; press again when safe to cross.</p>',
     choices: ['F'],
 };
 // block for sending data
@@ -213,10 +212,14 @@ for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
     timeline.push(image_block);  // page with an image asking to press the key
     timeline.push(video_stimuli[i]);  // page with the stimulus
     timeline.push(slider_block);
-    console.log(i, video_stimuli[i]);
+    if (DEBUG) {
+        console.log(i, video_stimuli[i]);
+    }
     // question in the end
     if (i == n_videos * n_repeat - 1) {
-        console.log('added radio question', i);
+        if (DEBUG) {
+            console.log('added radio question', i);
+        }
         timeline.push(question_block);
     }
     // save data
@@ -225,16 +228,23 @@ for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
     }
     // don't add the between block after the last trial
     if ((i + 1) % n_break == 0 && i != 0) {
-        console.log('added break', i, between_blocks[between_blocks_count]);
+        if (DEBUG) {
+            console.log('added break', i, between_blocks[between_blocks_count]);
+        }
         timeline.push(between_blocks[between_blocks_count]);
         between_blocks_count++;
     }
 }
-console.log(video_ids_1);
-console.log(video_ids_2);
-console.log(between_blocks);
-console.log(video_stimuli);
-console.log(timeline);
+
+if (DEBUG) {
+    console.log('finish_code', finish_code);
+    console.log('group_choice', group_choice);
+    console.log('video_ids_1', video_ids_1);
+    console.log('video_ids_2', video_ids_2);
+    console.log('between_blocks', between_blocks);
+    console.log('video_stimuli', video_stimuli);
+    console.log('timeline', timeline);
+}
 
 /* Start the experiment */
 jsPsych.init({
