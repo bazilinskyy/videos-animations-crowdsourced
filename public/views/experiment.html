@@ -132,7 +132,7 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
         height: 720,
         choices: ['F'],
         sources: [video_prefix + video_ids[i] + '.mp4'],
-        prompt: '<p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe the cross.</p>',
+        prompt: '<p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
                 worker_code: finish_code
@@ -174,7 +174,7 @@ var continue_block = {
 // black with image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
-    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe the cross.</p>',
+    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross.</p>',
     choices: ['F'],
 };
 // block for sending data
