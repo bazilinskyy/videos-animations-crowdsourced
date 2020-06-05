@@ -25,7 +25,7 @@ var n_videos_per_block = 4; // number of videos in each block
 var n_break = 10; // number of videos between each break
 var video_prefix = 'videos/video_'; // prefix for videos
 var image_pfefix = 'img/'; // prefix for images
-var DEBUG = false; // switch for debugging output
+var SHOW_DEBUG = false; // switch for debugging output
 
 /**
 * Returns a random integer between min (inclusive) and max (inclusive).
@@ -68,7 +68,29 @@ function shuffle(a) {
     return a;
 }
 
+/**
+ * Get parameter from URL.
+ */
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
 var group_choice = getRandomInt(0, 3);
+
+// try to get group choice from URL
+var debug = getUrlParameter('debug');
+if (!debug) {
+    debug = SHOW_DEBUG;
+}
 
 // Arrays for storing data
 var video_ids_1 = [];  // IDs of videos in stimuli in 1st part
@@ -120,7 +142,7 @@ var instructions_block = {
 
 // build array with videos with stimuli
 for (var i = 0; i < n_videos * n_repeat; i++) {
-    if (DEBUG) {
+    if (debug) {
         console.log(i, video_prefix + video_ids[i] + '.mp4');
     }
     video_stimuli.push({
@@ -212,12 +234,12 @@ for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
     timeline.push(image_block);  // page with an image asking to press the key
     timeline.push(video_stimuli[i]);  // page with the stimulus
     timeline.push(slider_block);
-    if (DEBUG) {
+    if (debug) {
         console.log(i, video_stimuli[i]);
     }
     // question in the end
     if (i == n_videos * n_repeat - 1) {
-        if (DEBUG) {
+        if (debug) {
             console.log('added radio question', i);
         }
         timeline.push(question_block);
@@ -228,7 +250,7 @@ for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
     }
     // don't add the between block after the last trial
     if ((i + 1) % n_break == 0 && i != 0) {
-        if (DEBUG) {
+        if (debug) {
             console.log('added break', i, between_blocks[between_blocks_count]);
         }
         timeline.push(between_blocks[between_blocks_count]);
@@ -236,7 +258,7 @@ for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
     }
 }
 
-if (DEBUG) {
+if (debug) {
     console.log('finish_code', finish_code);
     console.log('group_choice', group_choice);
     console.log('video_ids_1', video_ids_1);
