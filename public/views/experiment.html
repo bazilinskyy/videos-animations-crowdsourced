@@ -215,7 +215,8 @@ for (var i = 0; i <= n_videos * n_videos_per_block; i++) {
     timeline.push(slider_block);
     console.log(i, video_stimuli[i]);
     // question in the end
-    if (i == n_videos * n_videos_per_block - 1) {
+    if (i == n_videos * n_repeat - 1) {
+        console.log('added radio question', i);
         timeline.push(question_block);
     }
     // save data
