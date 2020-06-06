@@ -121,16 +121,84 @@ video_ids_2 = shuffle(video_ids_2);
 
 if (group_choice == 0) {  // group 1 with instructions (videos 1-28)
     video_ids = video_ids_1;
-    stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
 } else if (group_choice == 1)  { // group 2 with no instructions (videos 1-28)
     video_ids = video_ids_1;
-    stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
 } else if (group_choice == 2)  { // group 3 with instructions (videos 29-56)
     video_ids = video_ids_2;
-    stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
 } else if (group_choice == 3)  { // group 4 with no instructions (videos 29-56)
     video_ids = video_ids_2;
-    stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again multiple times during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+}
+
+// browser info
+// https://stackoverflow.com/questions/11219582/how-to-detect-my-browser-version-and-operating-system-using-javascript
+var nVer = navigator.appVersion;
+var nAgt = navigator.userAgent;
+var br_name  = navigator.appName;
+var br_full_version  = ''+parseFloat(navigator.appVersion); 
+var br_major_version = parseInt(navigator.appVersion,10);
+var nameOffset,verOffset,ix;
+
+// In Opera, the true version is after "Opera" or after "Version"
+if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+ br_name = "Opera";
+ br_full_version = nAgt.substring(verOffset+6);
+ if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+   br_full_version = nAgt.substring(verOffset+8);
+}
+// In MSIE, the true version is after "MSIE" in userAgent
+else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+ br_name = "Microsoft Internet Explorer";
+ br_full_version = nAgt.substring(verOffset+5);
+}
+// In Chrome, the true version is after "Chrome" 
+else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+ br_name = "Chrome";
+ br_full_version = nAgt.substring(verOffset+7);
+}
+// In Safari, the true version is after "Safari" or after "Version" 
+else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+ br_name = "Safari";
+ br_full_version = nAgt.substring(verOffset+7);
+ if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+   br_full_version = nAgt.substring(verOffset+8);
+}
+// In Firefox, the true version is after "Firefox" 
+else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+ browserName = "Firefox";
+ br_full_version = nAgt.substring(verOffset+8);
+}
+// In most other browsers, "name/version" is at the end of userAgent 
+else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < 
+          (verOffset=nAgt.lastIndexOf('/')) ) 
+{
+ browserName = nAgt.substring(nameOffset,verOffset);
+ br_full_version = nAgt.substring(verOffset+1);
+ if (browserName.toLowerCase()==browserName.toUpperCase()) {
+  browserName = navigator.appName;
+ }
+}
+// trim the br_full_version string at semicolon/space if present
+if ((ix=br_full_version.indexOf(";"))!=-1)
+   br_full_version=br_full_version.substring(0,ix);
+if ((ix=br_full_version.indexOf(" "))!=-1)
+   br_full_version=br_full_version.substring(0,ix);
+
+br_major_version = parseInt(''+br_full_version,10);
+if (isNaN(br_major_version)) {
+ br_full_version  = ''+parseFloat(navigator.appVersion); 
+ br_major_version = parseInt(navigator.appVersion,10);
+}
+
+if (debug) {
+    console.log('browser name', br_name);
+    console.log('browser full version', br_full_version);
+    console.log('browser major version', br_major_version);
+    console.log('browser navigator.appName', navigator.appName);
+    console.log('browser navigator.userAgent', navigator.userAgent);
 }
 
 // define instructions block
@@ -156,7 +224,12 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
         prompt: '<p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross; press again when safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
-                worker_code: finish_code
+                worker_code: finish_code,
+                browser_name: br_name,
+                browser_full_version: br_full_version,
+                browser_major_version: br_major_version,
+                browser_app_name: navigator.appName,
+                browser_user_agent: navigator.userAgent
             });
         }
     });
