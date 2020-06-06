@@ -203,9 +203,19 @@ if (debug) {
 
 // define instructions block
 var instructions_block = {
-  type: 'html-keyboard-response',
-  stimulus: stimulus_str,
-  choices: ['C'],
+    type: 'html-keyboard-response',
+    stimulus: stimulus_str,
+    choices: ['C'],
+    on_finish: function(data) {
+        jsPsych.data.addDataToLastTrial({
+                worker_code: finish_code,
+                browser_name: br_name,
+                browser_full_version: br_full_version,
+                browser_major_version: br_major_version,
+                browser_app_name: navigator.appName,
+                browser_user_agent: navigator.userAgent
+            });
+        }
 };
 
 // build array with videos with stimuli
@@ -224,12 +234,7 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
         prompt: '<p>Start by <strong>HOLDING</strong> the \'F\' key. Release the key when it becomes unsafe to cross; press again when safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
-                worker_code: finish_code,
-                browser_name: br_name,
-                browser_full_version: br_full_version,
-                browser_major_version: br_major_version,
-                browser_app_name: navigator.appName,
-                browser_user_agent: navigator.userAgent
+                worker_code: finish_code
             });
         }
     });
