@@ -86,7 +86,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 var group_choice = getRandomInt(0, 3);
 
-// try to get group choice from URL
+// try to get status of debugging from URL
 var debug = getUrlParameter('debug');
 if (!debug) {
     debug = SHOW_DEBUG;
@@ -208,14 +208,14 @@ var instructions_block = {
     choices: ['C'],
     on_finish: function(data) {
         jsPsych.data.addDataToLastTrial({
-                worker_code: finish_code,
-                browser_name: br_name,
-                browser_full_version: br_full_version,
-                browser_major_version: br_major_version,
-                browser_app_name: navigator.appName,
-                browser_user_agent: navigator.userAgent
-            });
-        }
+            worker_code: finish_code,
+            browser_name: br_name,
+            browser_full_version: br_full_version,
+            browser_major_version: br_major_version,
+            browser_app_name: navigator.appName,
+            browser_user_agent: navigator.userAgent
+        });
+    }
 };
 
 // build array with videos with stimuli
