@@ -243,7 +243,7 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
 var question_block = {
     type: 'survey-multi-choice',
     questions: [
-      {prompt: "In the current study, the car went <strong>towards you when stopping, and away from you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>away from you when stopping, and towards you when continuing to drive</strong>? Select your answer:", options: ["I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>", "I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>"], required: true, horizontal: true,}
+      {prompt: "In the current study, the car went <strong>towards you when stopping, and away from you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>away from you when stopping, and towards you when when it continued driving</strong>? Select your answer:", options: ["I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>", "I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>"], required: true}
     ],
 };
 // block with slider for each video
@@ -297,6 +297,7 @@ var save_data_block = {
 }
 // create experiment timeline array
 var timeline = [];
+timeline.push(question_block);
 timeline.push(instructions_block);
 // iterate over images
 var between_blocks_count = 0;  // counter of shown between blocks
