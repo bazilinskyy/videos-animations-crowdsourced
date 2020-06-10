@@ -122,15 +122,23 @@ video_ids_2 = shuffle(video_ids_2);
 if (group_choice == 0) {  // group 1 with instructions (videos 1-28)
     video_ids = video_ids_1;
     stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    question_prompt = "In the current study, the car went <strong>towards you when stopping, and away from you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>away from you when stopping, and towards you when it continued driving</strong>? Select your answer:";
+    question_options = ["I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>", "I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>"];
 } else if (group_choice == 1)  { // group 2 with no instructions (videos 1-28)
     video_ids = video_ids_1;
     stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    question_prompt = "In the current study, the car went <strong>towards you when stopping, and away from you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>away from you when stopping, and towards you when it continued driving</strong>? Select your answer:";
+    question_options = ["I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>", "I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>"];
 } else if (group_choice == 2)  { // group 3 with instructions (videos 29-56)
     video_ids = video_ids_2;
     stimulus_str = '<p>The purpose of this experiment is to determine if the movement of an automated vehicle can be used to communicate if it is going to stop for a pedestrian. In the following videos, you will see an automated vehicle deviate within its lane as it approaches you. The direction of the deviation indicates whether it intends to stop or keep going. Your task will be to hold a response key if you feel safe to cross.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    question_prompt = "In the current study, the car went <strong>away from you when stopping, and towards you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>towards you when stopping, and away from you when it continued driving</strong>? Select your answer:";
+    question_options = ["I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>", "I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>"];
 } else if (group_choice == 3)  { // group 4 with no instructions (videos 29-56)
     video_ids = video_ids_2;
     stimulus_str = '<p>The purpose of this experiment is to determine your willingness to cross in front of an automated vehicle. In the following videos, you will see an automated vehicle approaching you.</p><p>You will view ' + n_videos * n_repeat + ' animations. Press and HOLD \'F\' when you feel safe to cross the road in front of the car. You can release the button and then press it again as many times as you want during the video. After each ' + n_break + ' videos you will be able to take a small break. The window of your browser should be at least 1300px wide and 800px tall. Press \'C\' to start the first video.</p>';
+    question_prompt = "In the current study, the car went <strong>away from you when stopping, and towards you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>towards you when stopping, and away from you when it continued driving</strong>? Select your answer:";
+    question_options = ["I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>", "I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>"];
 }
 
 // browser info
@@ -243,7 +251,7 @@ for (var i = 0; i < n_videos * n_repeat; i++) {
 var question_block = {
     type: 'survey-multi-choice',
     questions: [
-      {prompt: "In the current study, the car went <strong>towards you when stopping, and away from you when it continued driving</strong>. Do you prefer this mapping, or would you prefer the opposite mapping: <strong>away from you when stopping, and towards you when when it continued driving</strong>? Select your answer:", options: ["I prefer the mapping <strong>towards me when stopping, and away from me when the car continues driving</strong>", "I prefer the mapping <strong>away from me when stopping, and towards me when the car continues driving</strong>"], required: true}
+      {prompt: question_prompt, options: question_options, required: true}
     ],
 };
 // block with slider for each video
@@ -297,6 +305,7 @@ var save_data_block = {
 }
 // create experiment timeline array
 var timeline = [];
+timeline.push(question_block);
 timeline.push(instructions_block);
 // iterate over images
 var between_blocks_count = 0;  // counter of shown between blocks
