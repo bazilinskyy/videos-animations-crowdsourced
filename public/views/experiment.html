@@ -217,6 +217,7 @@ var instructions_block = {
     on_finish: function(data) {
         jsPsych.data.addDataToLastTrial({
             worker_code: finish_code,
+            group_choice: group_choice,
             browser_name: br_name,
             browser_full_version: br_full_version,
             browser_major_version: br_major_version,
